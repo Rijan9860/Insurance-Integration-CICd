@@ -1,0 +1,3 @@
+org\bahmni\insurance\test\AbstractWebTest.class
+org\bahmni\insurance\test\web\TestRequestProcessor.class
+org\bahmni\insurance\test\service\TestFhirConstructorService.class

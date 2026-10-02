@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"></link></head>
+<body>
+    <div class="page-content">
+            <h2>Insurance detail</h2>
+    </br></br></br>
+        <table class = "table table-striped">
+		<thead>
+			<tr>
+				<td>Nhis Id</td>
+				<td>Patient Id</td>
+				<td>Status</td>
+				<td>BenefitBalance</td>
+				<td>Code</td>
+				<td>Term</td>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+                <td th:text="${nhisNumber}">nhisId</td>
+                <td th:text="${patientId}">patientId</td>
+                <td th:text="${status}">status</td>
+   				<td th:text="${benefitBalance}">benefitBalance</td>
+                <td th:text="${code}">code</td>
+                <td th:text="${term}">term</td>
+                
+            </tr>
+		</tbody>
+	</table>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"
+        integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="
+        crossorigin="anonymous"></script>
+ 
+ 
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

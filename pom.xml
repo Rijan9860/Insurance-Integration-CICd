@@ -1,0 +1,245 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+	<groupId>org.bahmni</groupId>
+	<artifactId>insurance-integration</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<start-class>org.bahmni.insurance.SpringBootConsoleApplication</start-class>
+		<rpm.build.number>1</rpm.build.number>
+		<hapiFhirStructureVersion>3.7.0 </hapiFhirStructureVersion>
+		<fhirVersion>1.18.0</fhirVersion>
+		<gsonVersion>2.8.5</gsonVersion>
+		<mysqlConnectorVersion>8.0.15</mysqlConnectorVersion>
+		<springBootVersion>2.1.5.RELEASE</springBootVersion>
+	</properties>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.5.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<!-- Spring boot dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-test</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- connection pools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>hapi-fhir-structures-dstu3</artifactId>
+			<version>${hapiFhirStructureVersion}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- <dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>fhir-api</artifactId>
+			<scope>provided</scope>
+			<version>${fhirVersion}</version>
+			
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+		<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    	</dependency>
+    	
+    	  <dependency>
+        <groupId>commons-validator</groupId>
+        <artifactId>commons-validator</artifactId>
+        <version>1.6</version>
+    </dependency>
+ 
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>2.9.2</version>
+	</dependency>
+ 
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-core</artifactId>
+	    <version>2.9.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>2.9.2</version>
+	</dependency>
+
+	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>openmrs-repo</id>
+			<name>OpenMRS Nexus Repository</name>
+			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+		</repository>
+	</repositories>
+
+
+
+	<build>
+		<plugins>
+		
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>true</addResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>rpm-maven-plugin</artifactId>
+				<version>2.1.5</version>
+				<executions>
+					<execution>
+						<id>generate-rpm</id>
+						<goals>
+							<goal>rpm</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<name>insurance-integration</name>
+					<group>ict4h.atomfeed</group>
+					<targetOS>Linux</targetOS>
+					<release>${rpm.build.number}</release>
+					<mappings>
+						<mapping>
+							<sources>
+								<source>
+									<location>${basedir}/target/</location>
+									<includes>
+										<include>insurance-integration*.jar</include>
+									</includes>
+								</source>
+							</sources>
+							<directory>/opt/insurance-integration/bin/</directory>
+						</mapping>
+						<mapping>
+							<sources>
+								<source>
+									<location>${basedir}/src/main/resources/application.properties</location>
+								</source>
+							</sources>
+							<directory>/opt/insurance-integration/etc/</directory>
+						</mapping>
+						<mapping>
+							<sources>
+								<source>
+									<location>${basedir}/src/main/resources/log4j.properties</location>
+								</source>
+							</sources>
+							<directory>/opt/insurance-integration/etc/</directory>
+						</mapping>
+						<mapping>
+							<sources>
+								<source>
+									<location>${basedir}/src/scripts/rpm/</location>
+								</source>
+							</sources>
+							<directory>/opt/insurance-integration/bin/</directory>
+						</mapping>
+					</mappings>
+
+					<preinstallScriptlet>
+						<scriptFile>${basedir}/src/scripts/installation/preInstall.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</preinstallScriptlet>
+					<postinstallScriptlet>
+						<scriptFile>${basedir}/src/scripts/installation/postInstall.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</postinstallScriptlet>
+					<preremoveScriptlet>
+						<scriptFile>${basedir}/src/scripts/installation/preRemove.sh</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</preremoveScriptlet>
+				</configuration>
+			</plugin> -->
+		</plugins>
+
+	</build>
+
+</project>
