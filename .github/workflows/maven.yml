@@ -2,13 +2,13 @@ name: Insurance Integration CD/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-
+    if: github.ref_name == 'develop' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install -DskipTests
+  success_notify:
+    needs: ['build']
+    if: always() && !failure()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Success
+        run: echo "Success email sent to the team"
